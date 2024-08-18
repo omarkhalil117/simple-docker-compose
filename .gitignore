@@ -3,3 +3,4 @@ node_modules
 nginx-selfsigned.crt
 nginx-selfsigned.key
 test.ts
+requirements.md
