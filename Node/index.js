@@ -26,30 +26,36 @@ const startConnection = async () => {
 
 startConnection();
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({extended:false}));
 
+// serve static files
 app.use('/assets',express.static(__dirname + '/public'));
 
+// test
 app.get('/api', (req,res) => {
     console.log('Hello')
     res.json({ message:`Hello there from host: ${os.hostname()}` });
-})
+});
 
+// load static file using streams
 app.get('/api/index.html' , (req,res) => {
     const file = fs.createReadStream(__dirname + "/index.html").pipe(res);
-})
+});
 
+// test redis
 app.get('/api/name', async (req,res) => {
     const name = await client.get('name')
     res.json({ message: name });
-})
+});
 
+// get all books
 app.get('/api/books', async (req,res) => {
     const books = await Book.find({},{__v:0});
     res.json({ message: 'success' , data: books});
-})
+});
 
+// create book
 app.post('/api/books', async (req,res) => {
     try {
         console.log(req.body)
@@ -61,6 +67,31 @@ app.post('/api/books', async (req,res) => {
     }
 });
 
+// update book
+app.patch('/api/books/:id', async (req,res) => {
+    try {
+        const id = req.params.id ;
+        console.log('Update body : ',req.body)
+        const book = await Book.findOneAndUpdate({_id: id} , req.body , { new:true},);
+        res.json({ message: "Updated Successfully" , book });
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err.message);
+    }
+});
+
+// delete book
+app.delete('/api/books/:id', async (req,res) => {
+    try {
+        const id = req.params.id ;
+        await Book.deleteOne({_id: id})
+        res.json({ message: "Deleted Successfully" });
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err.message);
+    }
+});
+
 const url = process.env.MONGO_URL || 'mongodb://localhost:27017/';
 
 mongoose.connect(url)
@@ -68,51 +99,4 @@ mongoose.connect(url)
         .catch( (err) => console.log('couldn\'t connect ' , err) );
 app.listen(3000, ()=> {
     console.log('Running...')
-})
-
-
-
-
-// console.log('helllloooo');
-
-// for (let i = 0 ; i < 3 ; i++) {
-//     setTimeout(()=> console.log(i), 1000*i);
-// }
-
-// for (var i = 0 ; i < 3 ; i++) {
-//     setTimeout(()=> console.log(i), 1000*i);
-//     debugger;
-// }
-
-// const EventEmitter = require('node:events')
-
-// const event = new EventEmitter();
-
-// event.once('hi', (name) => console.log(`hi !! ${name}`));
-
-// event.emit('hi', 'omar')
-// event.emit('hello', 'omar')
-
-// const fs = require('fs');
-
-// const rs = fs.createReadStream('./data.txt')
-
-// rs.on('data' , (data) => console.log(data.toString()));
-
-// rs.on('end' , () => console.log('Ended :)'));
-
-// const http = require('http');
-// const fs = require('fs');
-
-// const server = http.createServer(function(req,res) {
-//     if (req.url === '/index.html') {
-//         res.writeHead(200,{'Content-Type': 'text/html'});
-//         fs.createReadStream(__dirname + '/index.html').pipe(res);
-//     }
-    
-//     if (req.url === '/asstes/style.css') {
-//         console.log('request of css');
-//         res.writeHead(200,{'Content-Type': 'text/css'});
-//         fs.createReadStream(__dirname + 'assets/style.css').pipe(res);
-//     }
-// }).listen(3000)
+});

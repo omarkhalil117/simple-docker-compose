@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+// import Table from './components/Table';
 import axios from 'axios';
 import './App.css';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const [name, setName] = useState('');
@@ -29,40 +31,49 @@ function App() {
 
     if(output.data.message === 'added successfully') {
       alert('added successfully');
+      books.push({name,author})
+      setBooks(books);
+      setAuthor('');
+      setName('');
     }
-    setBooks([...books,{name,author}])
-    setAuthor('');
-    setName('');
   }
 
   return (
     <>
     <h1> Add book</h1>
 
-    <label htmlFor="">Name: </label>
-    <input type="text" placeholder='Enter Name' onChange={handleName} />
+    <button className='btn btn-primary' data-bs-toggle='modal' data-bs-target="#addModal">Add Book</button>
 
-    <br />
+    <Dashboard/>
 
-    <label htmlFor="">Author: </label>
-    <input type="text" placeholder='Enter Author' onChange={handleAuthor} />
 
-    <br />
+    {/* add book */}
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Book </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
+          </div>
+          <div class="modal-body">
 
-    <button onClick={handleSubmit}>submit</button>
+            <label htmlFor="">Name: </label>
+            <input type="text" placeholder='Enter Name' onChange={handleName} />
 
-    <br />
-    
-    <h2> All Books</h2>
+            <br />
 
-    {books.map((el, index) => {
-        return (
-          <p key={index}>
-          Author: {el.author} , Title: {el.name}
-          </p>
-        );
-    })}
+            <label htmlFor="">Author: </label>
+            <input type="text" placeholder='Enter Author' onChange={handleAuthor} />
 
+            <br />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button className='btn btn-success' onClick={handleSubmit}>submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
     </>
   )
 }
