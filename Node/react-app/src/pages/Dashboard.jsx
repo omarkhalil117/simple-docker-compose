@@ -6,8 +6,6 @@ import axios from 'axios';
 const Dashboard = () => {
   const [books, setBooks] = useState([]);
   const [currentBook, setCurrentBook] = useState(null);
-  const [name,setName] = useState('');
-  const [author,setAuthor] = useState('');
 
   useEffect(()=> {
     axios.get(`http://localhost:8080/api/books`)
@@ -16,37 +14,10 @@ const Dashboard = () => {
     console.log(books);
   },[]);
 
-  const handleNameUpdate = (e) => {
-    setCurrentBook({...currentBook,name:e.target.value});
-
-    console.log(e.target.value);
-    setName(e.target.value);
-  }
-  const handleAuthorUpdate = (e) => {
-    setCurrentBook({...currentBook,author:e.target.value});
-
-    console.log(e.target.value);
-    setAuthor(e.target.value);
-  }
-
   const handleEdit = (book) => {
     setCurrentBook(book);
     setName(currentBook.name);
     setAuthor(currentBook.author);
-  };
-
-  const handleDelete = (book) => {
-    setCurrentBook(book);
-  };
-
-  const updateBook = () => {
-    axios.patch(`http://localhost:8080/api/books/${currentBook._id}`, { name , author })
-    .then( (res) => { 
-      console.log(res.data) 
-      setCurrentBook(res.data.book);
-      alert(res.data.message);    
-    } )
-    .catch( (err) => console.log(err) )
   };
 
   const deleteBook = () => {
@@ -85,32 +56,7 @@ const Dashboard = () => {
         </tbody>
       </table>
 
-
-    {/* updateModal */}
-    <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">Update Book {currentBook?.title}</h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
-          </div>
-          <div className="modal-body">
-
-            <label htmlFor="title"> Title: </label>
-            <input type="text" id="title" value={currentBook?.name} onChange={handleNameUpdate} required />
-
-            <br />
-
-            <label htmlFor="title"> Author: </label>
-            <input type="text" id="author" value={currentBook?.author} onChange={handleAuthorUpdate} required />
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" className="btn btn-primary" onClick={() => updateBook()}>Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <UpdateModal currentBook={currentBook} />
 
     {/* deleteModal */}
     <div className="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

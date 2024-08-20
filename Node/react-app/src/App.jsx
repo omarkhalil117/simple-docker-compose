@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import Table from './components/Table';
 import axios from 'axios';
 import './App.css';
 import Dashboard from './pages/Dashboard';
@@ -40,8 +37,6 @@ function App() {
 
   return (
     <>
-    <h1> Add book</h1>
-
     <button className='btn btn-primary' data-bs-toggle='modal' data-bs-target="#addModal">Add Book</button>
 
     <Dashboard/>
