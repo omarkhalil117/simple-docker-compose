@@ -1,18 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function BooksTable({setMethod,books}) {
   return (
         <table className='mt-2'>
         <thead>
           <tr>
+            <th>#</th>
             <th>Author</th>
             <th>Title</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => (
+          {books.map((book,index) => (
             <tr key={book._id}>
+              <td className='mx-5'><Link to={`/books/${book._id}`} > {index + 1} </Link></td>
               <td className='mx-5' >{book.author}</td>
               <td className='mx-5'>{book.name}</td>
               <td>

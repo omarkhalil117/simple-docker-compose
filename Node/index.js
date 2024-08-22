@@ -55,6 +55,7 @@ app.get('/api/books', async (req,res) => {
     res.json({ message: 'success' , data: books});
 });
 
+
 // create book
 app.post('/api/books', async (req,res) => {
     try {
@@ -66,6 +67,17 @@ app.post('/api/books', async (req,res) => {
         res.send(err);
     }
 });
+
+// get one book
+app.get('/api/books/:id', async(req,res) => {
+    try {
+        const { id } = req.params;
+        const book = await Book.findOne({ _id: id });
+        res.json({ message: "success" , book });
+    } catch(err) {
+        res.status(404).send(err);
+    }
+})
 
 // update book
 app.patch('/api/books/:id', async (req,res) => {

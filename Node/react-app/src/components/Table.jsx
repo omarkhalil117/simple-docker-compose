@@ -9,7 +9,7 @@ function Table({rows}) {
       <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
-            <th>#</th>
+            <th>No.</th>
             <th>Author</th>
             <th>Title</th>
           </tr>
@@ -17,7 +17,7 @@ function Table({rows}) {
         <tbody>
           {rows.map((row, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
+              <td> <Link to='/books/:id' > {index + 1} </Link> </td>
               <td>{row.author}</td>
               <td>{row.name}</td>
             </tr>
