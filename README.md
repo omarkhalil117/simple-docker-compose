@@ -54,4 +54,4 @@ Write the following url on your prefered browser
 http://localhost:8080
 ~~~
 
-and you should now see admin dashboard page
+and you should now see Home page and link to dashboard page

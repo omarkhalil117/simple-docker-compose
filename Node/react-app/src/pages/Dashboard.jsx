@@ -3,6 +3,7 @@ import UpdateModal from '../components/UpdateModal';
 import DeleteModal from '../components/DeleteModal';
 import axios from 'axios';
 import BooksTable from '../components/BooksTable';
+import AddBookModal from '../components/AddBookModal';
 
 const Dashboard = () => {
   const [books, setBooks] = useState([]);
@@ -21,6 +22,11 @@ const Dashboard = () => {
   }
 
   return (
+    <>
+    <button className='btn btn-primary' data-bs-toggle='modal' data-bs-target="#addModal">Add Book</button>
+
+    <AddBookModal/>
+
     <div className='mt-5'>
       <h2>Admin Dashboard</h2>
 
@@ -29,6 +35,7 @@ const Dashboard = () => {
       <UpdateModal currentBook={currentBook} />
       <DeleteModal currentBook={currentBook}/>
     </div>
+    </>
   );
 };
 
