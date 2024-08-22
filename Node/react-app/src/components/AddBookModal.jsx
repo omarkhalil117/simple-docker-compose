@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function AddBookModal() {
+function AddBookModal({ booksMutation }) {
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
 
@@ -19,9 +19,9 @@ function AddBookModal() {
     console.log(output.data.message);
 
     if(output.data.message === 'added successfully') {
+      console.log(output)
+      booksMutation(output.data.book);
       alert('added successfully');
-      books.push({name,author})
-      setBooks(books);
       setAuthor('');
       setName('');
     }

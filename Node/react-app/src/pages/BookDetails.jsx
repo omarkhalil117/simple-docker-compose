@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 function BookDetails() {
     const [book, setBook] = useState('');
@@ -18,6 +18,7 @@ function BookDetails() {
     <>
         <h4>Book Name: <span className='text-primary'>{book.name}</span> </h4>    
         <h4>Book Autor: <span className='text-primary'>{book.author}</span> </h4>    
+        <Link to='/dashboard' > Back </Link>
     </>
   )
 }

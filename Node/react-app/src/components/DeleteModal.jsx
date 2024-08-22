@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 
-const DeleteModal = ({ currentBook }) => {
+const DeleteModal = ({ currentBook , booksMutation  }) => {
     
   const deleteBook = () => {
     axios.delete(`http://localhost:8080/api/books/${currentBook._id}`)
     .then((res) => { 
-      console.log(res.data); 
+      console.log(res.data);
+      booksMutation(currentBook._id,"delete"); 
       alert(res.data.message);
     } )
     .catch( (err)=> console.log(err))

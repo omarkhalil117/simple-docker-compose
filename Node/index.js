@@ -61,7 +61,7 @@ app.post('/api/books', async (req,res) => {
     try {
         console.log(req.body)
         const book = await Book.create(req.body);
-        res.send({message: "added successfully"});
+        res.send({message: "added successfully" , book});
     } catch (err) {
         console.log(err)
         res.send(err);

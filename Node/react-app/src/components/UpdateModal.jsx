@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UpdateModal = ({ currentBook }) => {
+const UpdateModal = ({ currentBook , booksMutation }) => {
   const [book, setBook] = useState({ name: '', author: '' });
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const UpdateModal = ({ currentBook }) => {
       .then((res) => {
         console.log(res.data);
         alert(res.data.message);
+        booksMutation(res.data.book._id,"update",res.data.book)
       })
       .catch((err) => console.log(err));
   };
