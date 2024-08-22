@@ -6,13 +6,13 @@ import Dashboard from './pages/Dashboard';
 function App() {
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
-  const [books , setBooks] = useState([]);
+  // const [books , setBooks] = useState([]);
 
-  useEffect(()=> {
-    axios.get(`http://localhost:8080/api/books`)
-    .then((res) =>  setBooks(res.data.data))
-    .catch((err) => console.log(err));
-  },[]);
+  // useEffect(()=> {
+  //   axios.get(`http://localhost:8080/api/books`)
+  //   .then((res) =>  setBooks(res.data.data))
+  //   .catch((err) => console.log(err));
+  // },[]);
 
   function handleName(e) {
     setName(e.target.value);
@@ -43,14 +43,14 @@ function App() {
 
 
     {/* add book */}
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Book </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
+    <div className="modal fade" id="addModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title fs-5" id="exampleModalLabel">Add Book </h1>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
 
             <label htmlFor="">Name: </label>
             <input type="text" placeholder='Enter Name' onChange={handleName} />
@@ -62,8 +62,8 @@ function App() {
 
             <br />
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button className='btn btn-success' onClick={handleSubmit}>submit</button>
           </div>
         </div>
