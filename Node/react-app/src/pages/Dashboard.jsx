@@ -13,16 +13,13 @@ const Dashboard = () => {
     axios.get(`http://localhost:8080/api/books`)
     .then((res) =>  setBooks(res.data.data))
     .catch((err) => console.log(err));
-    console.log(books);
   },[]);
 
   useEffect(()=> {
-    console.log(books)
   },[books])
 
   const setBook = (book) => {
     setCurrentBook(book);
-    console.log(book);
   }
 
   const updateBook = (id,method,updated) => {
@@ -31,7 +28,6 @@ const Dashboard = () => {
       let book = books.find((el)=> el._id === id);
       book.name = updated.name;
       book.author = updated.author;
-      console.log(`book: ${JSON.stringify(book)} updated: ${JSON.stringify(books)}`);
       setBooks([...books]);
       return 
     }
@@ -46,7 +42,6 @@ const Dashboard = () => {
 
   const pushBook = (book) => {
     books.push(book)
-    console.log(book);
     setBooks([...books]);
   }
 
