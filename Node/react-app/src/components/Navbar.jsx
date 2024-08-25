@@ -9,10 +9,11 @@ function Navbar() {
 
   return (
     <>
-    <div className='align-items-center'>
+    <div className='align-items-center mb-5'>
     <NavLink to='/' className={styleHandler}> Home </NavLink>
     <NavLink to='/dashboard' className={styleHandler}> Dashboard </NavLink>
     <NavLink to='/test' className={styleHandler}> Test </NavLink>
+    <NavLink to='/form' className={styleHandler}> Form </NavLink>
     </div>
     </>
   )
