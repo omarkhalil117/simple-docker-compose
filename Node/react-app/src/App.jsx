@@ -1,14 +1,18 @@
 import router from '../router';
 import './App.css';
 import { RouterProvider } from 'react-router-dom';
-import { SimpleProvider } from './contexts/SimpleContext';
+import { Provider } from "react-redux";
+import store from './store';
+// import { SimpleProvider } from './contexts/SimpleContext';
 function App() {
 
   return (
     <>
-    <SimpleProvider> 
+    {/* <SimpleProvider>  */}
+    <Provider store={store}>
     <RouterProvider router={router}/>
-    </SimpleProvider>
+    </Provider>
+    {/* </SimpleProvider> */}
     </>
   )
 }
