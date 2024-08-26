@@ -1,7 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+/* eslint-disable react/prop-types */
+import { useCallback } from 'react'
+import BookRow from './BookRow'
 
 function BooksTable({setMethod,books}) {
+  
+  const handleSetMethod = useCallback((book) => {
+    setMethod(book);
+  }, [setMethod]);
+
   return (
         <table className='mt-2'>
         <thead>
@@ -14,15 +20,7 @@ function BooksTable({setMethod,books}) {
         </thead>
         <tbody>
           {books.map((book,index) => (
-            <tr key={book._id}>
-              <td className='mx-5'><Link to={`/books/${book._id}`} > {index + 1} </Link></td>
-              <td className='mx-5' >{book.author}</td>
-              <td className='mx-5'>{book.name}</td>
-              <td>
-                <button className='mx-3 btn btn-info' data-bs-toggle='modal' onClick={()=> setMethod(book)} data-bs-target="#exampleModal">Edit</button>
-                <button className='mx-3 btn btn-danger' data-bs-toggle='modal' onClick={()=> setMethod(book)} data-bs-target="#deleteModal">Delete</button>
-              </td>
-            </tr>
+            <BookRow key={book._id} book={book} index={index} setMethod={handleSetMethod} />
           ))}
         </tbody>
       </table>
