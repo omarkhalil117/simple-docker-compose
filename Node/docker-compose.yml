@@ -12,6 +12,7 @@ services:
     depends_on:
       - mongo
       - redis
+      - elasticsearch
     environment:
       - MONGO_URL=mongodb://root:root@mongo:27017/
     deploy:

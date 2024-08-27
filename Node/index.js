@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs')
 const client = require('./redisClient');
+const elasticClient = require('./elasticClient');
 const Book = require('./models/Book');
 const cors = require('cors');
 const os = require('os');
@@ -25,6 +26,10 @@ const startConnection = async () => {
 };
 
 startConnection();
+
+elasticClient.ping()
+.then(res => console.log("connected to Elastic" + res))
+.catch(err => console.log(err));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({extended:false}));
@@ -111,8 +116,9 @@ app.delete('/api/books/:id', async (req,res) => {
 const url = process.env.MONGO_URL || 'mongodb://localhost:27017/';
 
 mongoose.connect(url)
-        .then(()=> console.log('Connected'))
+        .then(()=> console.log('Connected to DB'))
         .catch( (err) => console.log('couldn\'t connect ' , err) );
+
 app.listen(3000, ()=> {
     console.log('Running...')
 });
