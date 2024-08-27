@@ -8,6 +8,7 @@ const elasticClient = require('./elasticClient');
 const Book = require('./models/Book');
 const cors = require('cors');
 const os = require('os');
+const bookRoutes = require('./routes/bookRoutes');
 
 app.use(cors());
 
@@ -34,6 +35,10 @@ elasticClient.ping()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({extended:false}));
 
+// define books routes
+app.use('/api/books', bookRoutes);
+
+
 // serve static files
 app.use('/assets',express.static(__dirname + '/public'));
 
@@ -58,60 +63,7 @@ app.get('/api/name', async (req,res) => {
     res.json({ message: name });
 });
 
-// get all books
-app.get('/api/books', async (req,res) => {
-    const books = await Book.find({},{__v:0});
-    res.json({ message: 'success' , data: books});
-});
 
-
-// create book
-app.post('/api/books', async (req,res) => {
-    try {
-        console.log(req.body)
-        const book = await Book.create(req.body);
-        res.send({message: "added successfully" , book});
-    } catch (err) {
-        console.log(err)
-        res.send(err);
-    }
-});
-
-// get one book
-app.get('/api/books/:id', async(req,res) => {
-    try {
-        const { id } = req.params;
-        const book = await Book.findOne({ _id: id });
-        res.json({ message: "success" , book });
-    } catch(err) {
-        res.status(404).send(err);
-    }
-})
-
-// update book
-app.patch('/api/books/:id', async (req,res) => {
-    try {
-        const id = req.params.id ;
-        console.log('Update body : ',req.body)
-        const book = await Book.findOneAndUpdate({_id: id} , req.body , { new:true},);
-        res.json({ message: "Updated Successfully" , book });
-    } catch (err) {
-        console.log(err);
-        res.status(400).send(err.message);
-    }
-});
-
-// delete book
-app.delete('/api/books/:id', async (req,res) => {
-    try {
-        const id = req.params.id ;
-        await Book.deleteOne({_id: id})
-        res.json({ message: "Deleted Successfully" });
-    } catch (err) {
-        console.log(err);
-        res.status(400).send(err.message);
-    }
-});
 
 const url = process.env.MONGO_URL || 'mongodb://localhost:27017/';
 
