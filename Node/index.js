@@ -38,6 +38,10 @@ app.get('/api', (req,res) => {
     res.json({ message:`Hello there from host: ${os.hostname()}` });
 });
 
+app.get('/api/dummy' , (req,res) => {
+    res.json({ data: "api Data :D !!"});
+});
+
 // load static file using streams
 app.get('/api/index.html' , (req,res) => {
     const file = fs.createReadStream(__dirname + "/index.html").pipe(res);

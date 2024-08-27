@@ -4,13 +4,13 @@ import { getDataFromApi } from "../store/slices/counterSlice";
 
 function FirstComponent() {
     
-    const { count , apiData , isLoading } = useSelector(state => state.counter) 
+    const { value , apiData , isLoading } = useSelector(state => state.counter) 
 
     const dispatch = useDispatch();
 
    return (
     <>
-        <h1 className='text-center'>Count is {count} in Comp (1)</h1>
+        <h1 className='text-center'>Count is {value} in Comp (1)</h1>
         <button className="btn btn-primary" onClick={() => dispatch(increment())}> + </button> 
         <button className="btn btn-danger" onClick={() => dispatch(decrement())}> - </button> 
 
