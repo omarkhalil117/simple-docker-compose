@@ -9,7 +9,7 @@ router.get('/', async (req,res) => {
     res.json({ message: 'success' , data: books});
 });
 
-// Add a new book
+// add new book
 router.post('/', async (req, res) => {
   try {
     const newBook = new Book(req.body);
@@ -30,7 +30,7 @@ router.get('/:id', async(req,res) => {
     }
 })
 
-// Update an existing book by ID
+// update book by id
 router.put('/:id', async (req, res) => {
   try {
     const updatedBook = await Book.findOneAndUpdate({ id: req.params.id }, req.body, { new: true });
@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a book by ID
+// delete a book by id
 router.delete('/:id', async (req, res) => {
   try {
     const deletedBook = await Book.findOneAndDelete({ id: req.params.id });

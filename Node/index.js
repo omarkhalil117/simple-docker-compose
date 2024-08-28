@@ -5,10 +5,10 @@ const mongoose = require('mongoose');
 const fs = require('fs')
 const client = require('./redisClient');
 const elasticClient = require('./elasticClient');
-const Book = require('./models/Book');
 const cors = require('cors');
 const os = require('os');
 const bookRoutes = require('./routes/bookRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 app.use(cors());
 
@@ -38,6 +38,8 @@ app.use(bodyParser.json({extended:false}));
 // define books routes
 app.use('/api/books', bookRoutes);
 
+// deinfe search routes
+app.use('/api/search',searchRoutes);
 
 // serve static files
 app.use('/assets',express.static(__dirname + '/public'));
