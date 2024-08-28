@@ -1,10 +1,9 @@
 const client = require('../elasticClient');
-const Book = require('../models/Book');
 const { elasticToMongo } = require('./elasticToMongo');
 const indx = 'books';
 
 const indexSearch = async (req, res) => {
-
+    try {
     const keys = Object.keys(req.query);
 
     if (keys.length > 1) {
@@ -55,11 +54,14 @@ const indexSearch = async (req, res) => {
 
 
         res.json({ data: sources });
+    }} catch(err) {
+        res.status(400).json({ message: err.messag });
     }
 
 }
 
 const advancedSearch = async (req, res) => {
+    try {
     const { range } = req.body
     const [lower, upper] = range.split(',');
     console.log(`lower : ${lower} , upper : ${upper}`)
@@ -83,6 +85,9 @@ const advancedSearch = async (req, res) => {
 
 
     res.json({ data: sources })
+    } catch(err) {
+        res.status(400).json({ message: err.message });
+    }
 }
 
 module.exports = { indexSearch, advancedSearch }
