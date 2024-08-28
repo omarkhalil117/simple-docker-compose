@@ -1,5 +1,6 @@
 const client = require('../elasticClient');
 const Book = require('../models/Book');
+const { elasticToMongo } = require('./elasticToMongo');
 const indx = 'books';
 
 const indexSearch = async (req, res) => {
@@ -33,12 +34,7 @@ const indexSearch = async (req, res) => {
         }
     })
 
-    // to-do : make generic function for this step
-    const sources = await Promise.all(data.hits.hits.map( async (el) => {
-        const book = await Book.find({id: el._source.id}, {__v:0})
-        console.log(book)
-        return book;
-    } ))
+    const sources = await elasticToMongo(data);
 
     res.json({ books: sources });
 
@@ -54,12 +50,9 @@ const indexSearch = async (req, res) => {
         }
         });
         
-        // to-do : make generic function for this step
-        const sources = await Promise.all(data.hits.hits.map( async (el) => {
-        const book = await Book.find({id: el._source.id}, {__v:0})
-        console.log(book)
-        return book;
-        } ))
+
+        const sources = await elasticToMongo(data);
+
 
         res.json({ data: sources });
     }
@@ -85,12 +78,9 @@ const advancedSearch = async (req, res) => {
         }
     })
 
-    // to-do : make generic function for this step
-    const sources = await Promise.all(data.hits.hits.map( async (el) => {
-        const book = await Book.find({id: el._source.id}, {__v:0})
-        console.log(book)
-        return book;
-    } ))
+
+    const sources = await elasticToMongo(data);
+
 
     res.json({ data: sources })
 }
