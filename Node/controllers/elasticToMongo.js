@@ -5,7 +5,6 @@ const elasticToMongo = async (elasticData ) => {
         const book = await Book.find({id: el._source.id}, {__v:0})
         return book;
     } ))
-    console.log(sources)
     return sources;
 }
 

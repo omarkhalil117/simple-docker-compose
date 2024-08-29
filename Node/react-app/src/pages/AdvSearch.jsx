@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import  BooksTable from '../components/BooksTable'
+import { Link } from "react-router-dom";
 
-function Search() {
+function AdvSearch() {
   const [books, setBooks] = useState([]);
   const [searchTxt , setSearchTxt] = useState('');
   const [filter , setFilter] = useState('title');
@@ -14,16 +14,17 @@ function Search() {
     },[]);
 
   useEffect(() => {
-    const debounceTimer = setTimeout(() => {
+    const throttleTimer = setTimeout(() => {
       axios.get(`http://localhost:8080/api/search?${filter}=${searchTxt}`)
       .then( (res) => {
-        setBooks(res.data.books.flat())
+        setBooks(res.data.books)
         console.log(books)
        })
       .catch( (err) => console.log(err))
-    }, 1000);
+    }, 500);
 
-    return () => clearTimeout(debounceTimer);
+
+    return () => clearTimeout(throttleTimer);
   },[searchTxt,filter]);
 
   const handleSearchText = (e) => {
@@ -52,10 +53,16 @@ function Search() {
         </div>
 
         {books && books.length > 0 ? 
-          <BooksTable books={books} showActions={false}/> 
+            books.map( (book,index) => {
+                return <>
+                <Link to={`/books/${book._id}`}>{index}</Link>
+                <p>{book.title}</p>
+                <p>{book.author}</p>
+                </>
+            })
         : <h2>No results found</h2>}
         </>
   )
 }
 
-export default Search;
+export default AdvSearch;
