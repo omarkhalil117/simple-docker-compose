@@ -60,7 +60,7 @@ const Dashboard = () => {
     <div className='mt-5'>
       <h2>Admin Dashboard</h2>
 
-      <BooksTable books={books} setMethod={setBook}/> 
+      <BooksTable books={books} setMethod={setBook} showActions={true}/> 
       
       <UpdateModal currentBook={currentBook} booksMutation={updateBook} />
       <DeleteModal currentBook={currentBook} booksMutation={updateBook}/>

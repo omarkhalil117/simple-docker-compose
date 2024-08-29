@@ -2,7 +2,7 @@ const Book = require('../models/Book');
 
 const getAllBooks =  async (req,res) => {
     try {
-        const books = await Book.find({},{__v:0});
+        const books = await Book.find({},{__v:0}).sort({price:-1});
         res.json({ message: 'success' , data: books});
     } catch(err) {
         res.status(400).json({message : err.message});
