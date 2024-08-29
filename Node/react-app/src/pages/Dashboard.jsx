@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import UpdateModal from '../components/UpdateModal';
 import DeleteModal from '../components/DeleteModal';
 import axios from 'axios';
@@ -13,25 +13,26 @@ const Dashboard = () => {
     axios.get(`http://localhost:8080/api/books`)
     .then((res) =>  setBooks(res.data.data))
     .catch((err) => console.log(err));
-    console.log(books);
   },[]);
 
   useEffect(()=> {
-    console.log(books)
+    console.log("hi")
   },[books])
 
-  const setBook = (book) => {
+  const setBook = useCallback((book) => {
     setCurrentBook(book);
     console.log(book);
-  }
+  },[])
 
   const updateBook = (id,method,updated) => {
     if(method === "update")
     {
       let book = books.find((el)=> el._id === id);
-      book.name = updated.name;
-      book.author = updated.author;
-      console.log(`book: ${JSON.stringify(book)} updated: ${JSON.stringify(books)}`);
+      
+      Object.assign(book,updated);
+
+      console.log(1111,books)
+      // book.author = updated.author;
       setBooks([...books]);
       return 
     }

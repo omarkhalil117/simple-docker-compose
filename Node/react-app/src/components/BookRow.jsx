@@ -1,12 +1,14 @@
+/* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
+import React from 'react'
 
-const BookRow = ({ book , index , setMethod}) => {
+const BookRow = React.memo(({ book , index , setMethod}) => {
   return (
     <tr>
         <td className='mx-5'><Link to={`/books/${book._id}`} > {index + 1} </Link></td>
         <td className='mx-5' >{book.author}</td>
-        <td className='mx-5'>{book.name}</td>
+        <td className='mx-5'>{book.title}</td>
     
         <td>
             <button className='mx-3 btn btn-info' data-bs-toggle='modal' onClick={()=> setMethod(book)} data-bs-target="#exampleModal">Edit</button>
@@ -14,6 +16,6 @@ const BookRow = ({ book , index , setMethod}) => {
         </td>
     </tr>
   )
-}
+});
 
 export default BookRow

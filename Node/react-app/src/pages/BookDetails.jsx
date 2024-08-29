@@ -16,8 +16,12 @@ function BookDetails() {
 
   return (
     <>
-        <h4>Book Name: <span className='text-primary'>{book.name}</span> </h4>    
-        <h4>Book Autor: <span className='text-primary'>{book.author}</span> </h4>    
+        <h4>Name: <span className='text-primary'>{book.title}</span> </h4>    
+        <h4>Author: <span className='text-primary'>{book.author}</span> </h4>    
+        <h4>Country: <span className='text-primary'>{book.country}</span> </h4>    
+        <h4>Language: <span className='text-primary'>{book.language}</span> </h4>    
+        <h4>Pages: <span className='text-primary'>{book.pages}</span> </h4>    
+        <h4>Price: <span className='text-primary'>{book.price}</span> </h4>    
         <Link to='/dashboard' > Back </Link>
     </>
   )

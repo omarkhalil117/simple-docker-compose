@@ -7,6 +7,7 @@ import NavLayout from "./Layouts/NavLayout";
 import BookDetails from "./src/pages/BookDetails";
 import Form from './src/pages/Form';
 import ContextPage from "./src/pages/ContextPage";
+import Search from "./src/pages/Search";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: '/context',
                 element: <ContextPage/>
+            },
+            {
+                path: '/search',
+                element: <Search/>
             },
             {
                 path: '*',
