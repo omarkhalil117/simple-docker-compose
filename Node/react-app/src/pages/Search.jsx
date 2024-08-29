@@ -18,7 +18,6 @@ function Search() {
       axios.get(`http://localhost:8080/api/search?${filter}=${searchTxt}`)
       .then( (res) => {
         setBooks(res.data.books.flat())
-        console.log(books)
        })
       .catch( (err) => console.log(err))
     }, 1000);
@@ -38,6 +37,7 @@ function Search() {
 
     return (
         <>
+        <h1 className="text-center">Search by Index</h1>
         <div className="d-flex justify-content-around">
 
         <div className="input-group flex-nowrap">

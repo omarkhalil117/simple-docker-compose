@@ -3,15 +3,17 @@
 import { Link } from 'react-router-dom'
 import React from 'react'
 
-const BookRow = ({ book , index , setMethod , showActions}) => {
+const BookRow = React.memo(({ book , index , setMethod , showActions}) => {
   return (
     <tr>
         <td className='mx-5'><Link to={`/books/${book._id}`} > {index + 1} </Link></td>
         <td className='mx-5' >{book.author}</td>
         <td className='mx-5'>{book.title}</td>
+        
         {!showActions && <td className='mx-5'>{book.price}</td>}
     
         <td>
+          {/* only show it on admin dashboard */}
           {
             showActions &&
             <>
@@ -22,6 +24,6 @@ const BookRow = ({ book , index , setMethod , showActions}) => {
         </td>
     </tr>
   )
-};
+});
 
 export default BookRow

@@ -1,11 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import BooksTable from "../components/BooksTable";
 
 function AdvSearch() {
   const [books, setBooks] = useState([]);
-  const [searchTxt , setSearchTxt] = useState('');
-  const [filter , setFilter] = useState('title');
+  const [range , setRange] = useState({
+    min:0,
+    max:0,
+  });
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/books")
@@ -13,53 +15,41 @@ function AdvSearch() {
     .catch( (err) => console.log(err))
     },[]);
 
-  useEffect(() => {
-    const throttleTimer = setTimeout(() => {
-      axios.get(`http://localhost:8080/api/search?${filter}=${searchTxt}`)
+    const handleSearch = () => {
+      axios.post(`http://localhost:8080/api/search/advanced`, {range : `${range.min},${range.max}` } )
       .then( (res) => {
-        setBooks(res.data.books)
+        setBooks(res.data.data.flat())
         console.log(books)
        })
       .catch( (err) => console.log(err))
-    }, 500);
-
-
-    return () => clearTimeout(throttleTimer);
-  },[searchTxt,filter]);
-
-  const handleSearchText = (e) => {
-    console.log(e.target.value)
-    setSearchTxt(e.target.value);
   };
 
-  const handleSetFilter = (e) => {
-    console.log(e.target.value);
-    setFilter(e.target.value);
+  const handleMin = (e) => {
+    setRange((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    console.log(range)
+  };
+
+  const handleMax = (e) => {
+    setRange((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    console.log(range)
   };
 
     return (
         <>
+        <h1 className="text-center">Search by range</h1>
         <div className="d-flex justify-content-around">
 
-        <div className="input-group flex-nowrap">
-            <input type="text" className="form-control" placeholder="Search..." aria-label="Username" aria-describedby="addon-wrapping" onChange={handleSearchText}/>
-        </div>
+        <label htmlFor="min">Minimum</label>
+        <input type="number" name="min" id="min" placeholder="0" onChange={handleMin} />
 
-        <select className="form-select" aria-label="Default select example" onChange={handleSetFilter} >
-        <option value="author">Author</option>
-        <option value="title">Title</option>
-        </select>
+        <label htmlFor="max">Maximum</label>
+        <input type="number" name="max" id="max" placeholder="0" onChange={handleMax}/>
 
+        <button onClick={handleSearch}>Search</button>
         </div>
 
         {books && books.length > 0 ? 
-            books.map( (book,index) => {
-                return <>
-                <Link to={`/books/${book._id}`}>{index}</Link>
-                <p>{book.title}</p>
-                <p>{book.author}</p>
-                </>
-            })
+        <BooksTable books={books} showActions={false} />  
         : <h2>No results found</h2>}
         </>
   )

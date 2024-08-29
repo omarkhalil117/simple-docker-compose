@@ -7,7 +7,6 @@ function BooksTable({setMethod,books, showActions}) {
   const handleSetMethod = useCallback((book) => {
     setMethod(book);
   }, [setMethod]);
-  console.log("inside table",books)
   return (
         <table className='mt-2'>
         <thead>
@@ -15,6 +14,7 @@ function BooksTable({setMethod,books, showActions}) {
             <th>#</th>
             <th>Author</th>
             <th>Title</th>
+            {/* only show actions for admin dashboard */}
             {showActions && <th>Actions</th>}
             {!showActions && <th>Price</th>}
           </tr>

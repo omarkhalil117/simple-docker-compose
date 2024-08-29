@@ -15,6 +15,7 @@ function Navbar() {
     <NavLink to='/form' className={styleHandler}> Form </NavLink>
     <NavLink to='/context' className={styleHandler}> Redux </NavLink>
     <NavLink to='/search' className={styleHandler}> Search </NavLink>
+    <NavLink to='/adv-search' className={styleHandler}> Advanced Search </NavLink>
     </div>
     </>
   )
