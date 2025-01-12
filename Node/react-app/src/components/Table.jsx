@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Table({rows}) {
-    console.log(rows)
   return (
      <div className="container mt-4">
       <h2>Book List</h2>

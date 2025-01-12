@@ -15,11 +15,9 @@ function AddBookModal({ booksMutation }) {
   }
 
   async function handleSubmit() {
-    const output = await axios.post(`http://localhost:8080/api/books`, { name , author });
-    console.log(output.data.message);
+    const output = await axios.post(`${import.meta.env.VITE_API_URL}/api/books`, { name , author });
 
     if(output.data.message === 'added successfully') {
-      console.log(output)
       booksMutation(output.data.book);
       alert('added successfully');
       setAuthor('');

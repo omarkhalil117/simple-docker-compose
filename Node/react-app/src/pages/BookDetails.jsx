@@ -9,7 +9,7 @@ function BookDetails() {
     const bookId = params.id;
 
     useEffect(()=> {
-        axios.get(`http://localhost:8080/api/books/${bookId}`)
+        axios.get(`${import.meta.env.VITE_API_URL}/api/books/${bookId}`)
         .then((res) => setBook(res.data.book))
         .catch((err) => console.log(err));
     },[]);

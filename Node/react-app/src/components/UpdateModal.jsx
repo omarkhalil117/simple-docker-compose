@@ -19,9 +19,8 @@ const UpdateModal = ({ currentBook , booksMutation }) => {
   };
 
   const updateBook = () => {
-    axios.patch(`http://localhost:8080/api/books/${book._id}`, { name: book.name, author: book.author })
+    axios.patch(`${import.meta.env.VITE_API_URL}/api/books/${book._id}`, { name: book.name, author: book.author })
       .then((res) => {
-        console.log(res.data);
         alert(res.data.message);
         booksMutation(res.data.book._id,"update",res.data.book)
       })
