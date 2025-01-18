@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { FaTimes } from "react-icons/fa";
 import axios from 'axios';
 
 function AddBookModal({ booksMutation }) {
@@ -45,7 +46,9 @@ function AddBookModal({ booksMutation }) {
               className="btn-close btn-close-white"
               data-bs-dismiss="modal"
               aria-label="Close"
-            />
+            >
+              <FaTimes/>
+            </button>
           </div>
 
           {/* Modal Body */}
