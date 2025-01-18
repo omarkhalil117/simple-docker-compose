@@ -62,4 +62,5 @@ http://localhost:8080
 ~~~
 
 and you should now see Home page and link to dashboard page like this
-![home_page](https://ibb.co/DkTgQDQ)
+
+[![Screenshot-from-2025-01-19-00-26-49.png](https://i.postimg.cc/mg5JKdmc/Screenshot-from-2025-01-19-00-26-49.png)](https://postimg.cc/NKRdHxqY)
