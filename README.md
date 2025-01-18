@@ -31,9 +31,16 @@ You should have [docker](https://www.docker.com/) already installed on your mach
 
 
 ## Installation
-Make sure you are on ./Node directory and run this command
+Make sure you are on ./Node directory and run this command.
 ~~~sh
 docker compose up --build -d
+~~~
+
+Note: if you have mongodb server or redis service running don't foreget to disable them using systemctle
+
+~~~sh
+sudo systemctl stop mongod
+sudo systemctl stop redis
 ~~~
 
 This command will pull the required images **if not already pulled** and 
@@ -54,4 +61,5 @@ Write the following url on your prefered browser
 http://localhost:8080
 ~~~
 
-and you should now see Home page and link to dashboard page
+and you should now see Home page and link to dashboard page like this
+![home_page](https://ibb.co/DkTgQDQ)
