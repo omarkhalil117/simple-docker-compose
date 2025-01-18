@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaTimes } from "react-icons/fa";
 import axios from 'axios';
 
 const DeleteModal = ({ currentBook , booksMutation  }) => {
@@ -13,27 +14,59 @@ const DeleteModal = ({ currentBook , booksMutation  }) => {
   };
 
   return (
-    <div className="modal fade" id="deleteModal" tabIndex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div
+      className="modal fade"
+      id="deleteModal"
+      tabIndex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete Book {currentBook?.name}</h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
+          {/* Modal Header */}
+          <div className="modal-header bg-danger text-white">
+            <h5 className="modal-title" id="deleteModalLabel">
+              Delete Book: <span className="fw-bold">{currentBook?.name}</span>
+            </h5>
+            <button
+              type="button"
+              className="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <FaTimes />
+            </button>
           </div>
-          
-          <div className="modal-body">
-          <h4>Confirm Deletion</h4>
-          <p>Are you sure you want to delete this book?</p>
+
+          {/* Modal Body */}
+          <div className="modal-body text-center">
+            <h4 className="text-danger">Confirm Deletion</h4>
+            <p className="text-muted">
+              Are you sure you want to delete the book{" "}
+              <strong>{currentBook?.name}</strong>? This action cannot be undone.
+            </p>
           </div>
-            
+
+          {/* Modal Footer */}
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" className="btn btn-primary" onClick={() => deleteBook()}>Delete</button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => deleteBook()}
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 

@@ -1,58 +1,43 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+import { FaBook, FaUser, FaListOl } from "react-icons/fa";
 
-function Table({rows}) {
+function Table({ rows }) {
   return (
-     <div className="container mt-4">
-      <h2>Book List</h2>
+    <div className="container mt-4">
+      <h2 className="text-center mb-4">📚 Book List</h2>
 
-      <table className="table table-striped table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Author</th>
-            <th>Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, index) => (
-            <tr key={index}>
-              <td> <Link to='/books/:id' > {index + 1} </Link> </td>
-              <td>{row.author}</td>
-              <td>{row.name}</td>
+      <div className="table-responsive">
+        <table className="table table-striped table-bordered table-hover">
+          <thead className="thead-dark">
+            <tr>
+              <th>
+                <FaListOl /> No.
+              </th>
+              <th>
+                <FaUser /> Author
+              </th>
+              <th>
+                <FaBook /> Title
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-</div>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={index} className={index % 2 === 0 ? "table-light" : "table-secondary"}>
+                <td>
+                  <Link to={`/books/${row.id}`} className="text-decoration-none">
+                    {index + 1}
+                  </Link>
+                </td>
+                <td>{row.author}</td>
+                <td>{row.name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
-
 export default Table
-
-//       <div className="mb-4">
-        {/* <div className="form-group">
-          <label>Author</label>
-          <input
-            type="text"
-            className="form-control"
-            name="author"
-            value={newRow.author}
-            onChange={handleInputChange}
-            placeholder="Enter author"
-          />
-        </div>
-        <div className="form-group">
-          <label>Title</label>
-          <input
-            type="text"
-            className="form-control"
-            name="title"
-            value={newRow.title}
-            onChange={handleInputChange}
-            placeholder="Enter title"
-          />
-        </div> */}
-        {/* <button className="btn btn-primary mt-2" onClick={addRow}>
-          Add Book
-        </button> */}
-    //   </div>

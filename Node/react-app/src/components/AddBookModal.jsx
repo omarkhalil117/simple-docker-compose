@@ -25,34 +25,85 @@ function AddBookModal({ booksMutation }) {
     }
   }
 
-  return (
-    <div className="modal fade" id="addModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ return (
+    <div
+      className="modal fade"
+      id="addModal"
+      tabIndex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">Add Book </h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
+          {/* Modal Header */}
+          <div className="modal-header bg-success text-white">
+            <h5 className="modal-title fs-5" id="exampleModalLabel">
+              Add Book
+            </h5>
+            <button
+              type="button"
+              className="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            />
           </div>
+
+          {/* Modal Body */}
           <div className="modal-body">
+            <form>
+              {/* Book Name Input */}
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label">
+                  <strong>Name</strong>:
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="form-control"
+                  placeholder="Enter Book Name"
+                  onChange={handleName}
+                  required
+                />
+              </div>
 
-            <label htmlFor="">Name: </label>
-            <input type="text" placeholder='Enter Name' onChange={handleName} />
-
-            <br />
-
-            <label htmlFor="">Author: </label>
-            <input type="text" placeholder='Enter Author' onChange={handleAuthor} />
-
-            <br />
+              {/* Author Input */}
+              <div className="mb-3">
+                <label htmlFor="author" className="form-label">
+                  <strong>Author</strong>:
+                </label>
+                <input
+                  type="text"
+                  id="author"
+                  className="form-control"
+                  placeholder="Enter Author Name"
+                  onChange={handleAuthor}
+                  required
+                />
+              </div>
+            </form>
           </div>
+
+          {/* Modal Footer */}
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button className='btn btn-success' onClick={handleSubmit}>submit</button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default AddBookModal
