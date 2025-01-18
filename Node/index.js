@@ -51,8 +51,17 @@ app.get('/api/name', async (req,res) => {
 
 // get all books
 app.get('/api/books', async (req,res) => {
-    const books = await Book.find({},{__v:0});
-    res.json({ message: 'success' , data: books});
+   client.get('books', async (err, cachedBooks) => {
+        if (err) throw err;
+
+        if (cachedBooks) {
+            res.json({ message: 'success', data: JSON.parse(cachedBooks) });
+        } else {
+            const books = await Book.find({}, { __v: 0 });
+            client.set('books', JSON.stringify(books), 'EX', 60*2);
+            res.json({ message: 'success', data: books });
+        }
+    });
 });
 
 
